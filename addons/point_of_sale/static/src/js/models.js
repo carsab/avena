@@ -1281,6 +1281,11 @@ class PosGlobalState extends PosModel {
         return `${Number(value.toFixed(currency.decimal_places || 0))}`;
     }
 
+    formatFixedNoDecimal(value) {
+        const currency = this.currency || { decimal_places: 0};
+        return `${Number(value.toFixed(currency.decimal_places || 0))}`;
+    }
+
     disallowLineQuantityChange() {
         return false;
     }
@@ -2528,6 +2533,7 @@ class Order extends PosModel {
             },
             currency: this.pos.currency,
             pos_qr_code: this._get_qr_code_data(),
+            total_qty: this.get_total_qty(),
         };
 
         if (is_html(this.pos.config.receipt_header)){
@@ -2934,6 +2940,11 @@ class Order extends PosModel {
         return round_pr(this.orderlines.reduce((function(sum, orderLine){
             return sum + orderLine.get_display_price();
         }), 0), this.pos.currency.rounding);
+    }
+    get_total_qty() {
+        return (this.orderlines.reduce((function(sum, orderLine) {
+            return sum + orderLine.quantity;
+        }),0));
     }
     get_total_with_tax() {
         return this.get_total_without_tax() + this.get_total_tax();

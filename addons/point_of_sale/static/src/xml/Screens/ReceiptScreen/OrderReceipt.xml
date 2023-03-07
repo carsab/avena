@@ -120,7 +120,12 @@
                 </div>
             </t>
 
-            <div class="before-footer" />
+                        <div class="before-footer">
+				<br /><br />
+				<div>***CANTIDAD ENTREGADA***
+                <span t-esc="env.pos.formatFixedNoDecimal(receipt.total_qty)" />
+                </div>
+			</div>
 
             <div t-if="receipt.pos_qr_code">
                 <br /><br />
