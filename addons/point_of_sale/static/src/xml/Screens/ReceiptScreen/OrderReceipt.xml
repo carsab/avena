@@ -122,7 +122,7 @@
 
                         <div class="before-footer">
 				<br /><br />
-				<div>***CANTIDAD ENTREGADA***
+				<div>Total productos:
                 <span t-esc="env.pos.formatFixedNoDecimal(receipt.total_qty)" />
                 </div>
 			</div>
